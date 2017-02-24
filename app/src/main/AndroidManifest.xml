@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".PixelDotMeService" />
 
         <receiver android:name=".BootReciever">
             <intent-filter>

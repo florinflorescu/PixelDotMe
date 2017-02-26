@@ -1,5 +1,6 @@
 package pixeldotme.florinflorescu.ffl.com.pixeldotme;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 //test
@@ -13,6 +14,9 @@ public class PixelDotMe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pixel_dot_me);
 
+
+        Intent intent = new Intent(this, PixelDotMeService.class);
+        startService(intent);
 
         /*
            Log.i("MainActivity", "onCreate");

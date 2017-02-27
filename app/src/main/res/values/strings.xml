@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PixelDotMe</string>
+    <string name="fl_intent_name">android.intent.action.MAIN</string>
 </resources>

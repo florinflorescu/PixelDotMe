@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "676581437781",
+    "firebase_url": "https://pixeldotme-3ad11.firebaseio.com",
+    "project_id": "pixeldotme-3ad11",
+    "storage_bucket": "pixeldotme-3ad11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676581437781:android:e8d0cfec8190b0d7",
+        "android_client_info": {
+          "package_name": "pixeldotme.florinflorescu.ffl.com.pixeldotme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676581437781-02h47qiiuvlqgdt936hg2hl9dkg673jr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pixeldotme.florinflorescu.ffl.com.pixeldotme",
+            "certificate_hash": "a142d803ac52e0b5cc7974ca6c7d6e545000e54e"
+          }
+        },
+        {
+          "client_id": "676581437781-vauenav4j2132cvc61et7f9a6t7jjn9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZUkN3gTH76I5ZdVIHdBDZRgxe-K_IeA4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676581437781-vauenav4j2132cvc61et7f9a6t7jjn9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

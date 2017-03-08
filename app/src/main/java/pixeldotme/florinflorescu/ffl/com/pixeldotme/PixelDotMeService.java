@@ -5,11 +5,11 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -32,6 +32,22 @@ public class PixelDotMeService extends Service implements LocationListener {
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private BroadcastReceiver mReceiver;
+
+
+
+    private final IBinder mBinder = new LocalBinder();
+
+    /**
+     * Class for clients to access.  Because we know this service always
+     * runs in the same process as its clients, we don't need to deal with
+     * IPC.
+     */
+    public class LocalBinder extends Binder {
+        PixelDotMeService getService() {
+            return PixelDotMeService.this;
+        }
+    }
+
 
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler {
@@ -73,24 +89,6 @@ public class PixelDotMeService extends Service implements LocationListener {
 
 
 
-        IntentFilter intentFilter = new IntentFilter(
-                "android.intent.action.MAIN");
-
-        mReceiver = new BroadcastReceiver() {
-
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                //extract our message from intent
-                String msg_for_me = intent.getStringExtra("some_msg");
-                //log our message value
-                Log.i("InchooTutorial", msg_for_me);
-                String cocotier = intent.getStringExtra("cocotier");
-                Log.i("InchooTutorial", cocotier);
-
-            }
-        };
-        //registering our receiver
-        this.registerReceiver(mReceiver, intentFilter);
     }
 
     @Override
@@ -158,6 +156,7 @@ public class PixelDotMeService extends Service implements LocationListener {
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         mlocManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, this);
+
         return START_STICKY;
     }
 

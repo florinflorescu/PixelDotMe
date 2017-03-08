@@ -1,6 +1,7 @@
 package pixeldotme.florinflorescu.ffl.com.pixeldotme;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -25,6 +26,7 @@ public class PixelDotMe extends AppCompatActivity {
     final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 0x13;
     final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0x14;
 
+    private BroadcastReceiver mReceiver;
     boolean bHaveAllPermissions = true;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -62,23 +64,18 @@ public class PixelDotMe extends AppCompatActivity {
 
         if (bHaveAllPermissions) {
             Intent intent = new Intent(this, PixelDotMeService.class);
+
             startService(intent);
         } else {
             Toast.makeText(this,"Please allow the app to use your location and restart", Toast.LENGTH_LONG).show();
         }
-        /*
-           Log.i("MainActivity", "onCreate");
-
-        Intent service_intent = new Intent(this, HubbleNowService.class);
-        startService(service_intent);
-        IntentFilter intentFilter = new IntentFilter(
-                "android.intent.action.MAIN");
 
 
-         */
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
     /**
@@ -122,17 +119,7 @@ public class PixelDotMe extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
-/*
-        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            Toast.makeText(this, "BLE is not supported", Toast.LENGTH_SHORT).show();
-            finish();
-        }
 
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        BluetoothAdapter mBluetoothAdapter = bluetoothManager.getAdapter();
-
-*/
 
 
         return true;
@@ -147,9 +134,7 @@ public class PixelDotMe extends AppCompatActivity {
         if (item.getItemId() == R.id.id_main_menu_settings)
         {
             Log.i("MENU - ","item is settings");
-            Intent i = new Intent("android.intent.action.MAIN").putExtra("some_msg", "I will be sent!");
-            i.putExtra("cocotier","baga mare");
-            this.sendBroadcast(i);
+
 
         }
 

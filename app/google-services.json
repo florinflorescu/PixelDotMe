@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "676581437781-cpa8pl20kob90jg4su97eckq47hr2pub.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pixeldotme.florinflorescu.ffl.com.pixeldotme",
+            "certificate_hash": "9c82546f90e9682af5fde9e3673ff50baaf23567"
+          }
+        },
+        {
           "client_id": "676581437781-02h47qiiuvlqgdt936hg2hl9dkg673jr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

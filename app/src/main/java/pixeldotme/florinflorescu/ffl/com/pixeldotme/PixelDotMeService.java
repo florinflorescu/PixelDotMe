@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,11 +18,14 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Messenger;
 import android.os.Process;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * Created by florin.florescu on 2/24/2017.
@@ -33,7 +38,16 @@ public class PixelDotMeService extends Service implements LocationListener {
     private ServiceHandler mServiceHandler;
     private BroadcastReceiver mReceiver;
 
+    static final int MSG_REGISTER_CLIENT = 1;
+    static final int MSG_UNREGISTER_CLIENT = 2;
+    static final int MSG_SET_INT_VALUE = 3;
+    static final int MSG_SET_STRING_VALUE = 4;
 
+    private static boolean isRunning = false;
+    private int counter = 0, incrementby = 1;
+    ArrayList<Messenger> mClients = new ArrayList<Messenger>(); // Keeps track of all current registered clients.
+
+    final Messenger mMessenger = new Messenger(new IncomingHandler()); // Target we publish for clients to send messages to IncomingHandler.
 
     private final IBinder mBinder = new LocalBinder();
 
@@ -86,6 +100,7 @@ public class PixelDotMeService extends Service implements LocationListener {
         // Get the HandlerThread's Looper and use it for our Handler
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
+        isRunning = true;
 
 
 
@@ -115,6 +130,8 @@ public class PixelDotMeService extends Service implements LocationListener {
                     try {
                         Thread.sleep(5000);
                         Log.i("Mainloop", "Recording is .");
+                        ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                     } catch (Exception e) {
                     }
 /*
@@ -175,7 +192,28 @@ public class PixelDotMeService extends Service implements LocationListener {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+
+        return mMessenger.getBinder();
+
+    }
+
+    class IncomingHandler extends Handler { // Handler of incoming messages from clients.
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_REGISTER_CLIENT:
+                    mClients.add(msg.replyTo);
+                    break;
+                case MSG_UNREGISTER_CLIENT:
+                    mClients.remove(msg.replyTo);
+                    break;
+                case MSG_SET_INT_VALUE:
+                    incrementby = msg.arg1;
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
     }
 
     @Override
@@ -199,6 +237,9 @@ public class PixelDotMeService extends Service implements LocationListener {
     }
 
 
-
+    public static boolean isRunning()
+    {
+        return isRunning;
+    }
 
 }

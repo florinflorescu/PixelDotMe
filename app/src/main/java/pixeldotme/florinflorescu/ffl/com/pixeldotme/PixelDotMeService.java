@@ -186,7 +186,10 @@ public class PixelDotMeService extends Service implements LocationListener {
 
 
             StringBuilder sb = new StringBuilder();
+            FflBeacon fflB = new FflBeacon(bali);
 
+            if (fflB.beacon_uuid == (short)0xFEAA)
+                Log.d("Temperatura:",""+fflB.beacon_temperature);
 
             StringBuilder str_mfg = new StringBuilder();
             str_mfg.append(String.format("%02X", bali[6]));
@@ -210,7 +213,7 @@ public class PixelDotMeService extends Service implements LocationListener {
                 sb.append(String.format("%02X ", bali[i]));
             }
 
-            //Log.d("Filtered UUID is", sb.toString());
+            Log.d("Filtered UUID RSSI is",result.getDevice().getAddress() + "<<-->> "+result.getRssi()+" <-> "+sb.toString());
 
             //  if ((bali[5]==0x4c) && (bali[6]==0x0))
             {
